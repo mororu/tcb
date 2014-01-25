@@ -1,0 +1,20 @@
+CREATE TABLE  `tcbtcr`.`reservation_res` (
+`res_id` INT( 4 ) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT  'Reservations Id',
+`res_date` DATE NOT NULL COMMENT  'Reservationsdatum',
+`res_begin` INT( 4 ) NOT NULL COMMENT  'Reservationstart',
+`res_end` INT( 4 ) NOT NULL COMMENT  'Reservationsende',
+`res_court` TINYINT( 1 ) NOT NULL COMMENT  'Tennisplatz Nummer',
+`res_description` VARCHAR( 1024 ) NULL COMMENT  'Bemerkung',
+`res_type` TINYINT( 1 ) NOT NULL COMMENT  'Reservationstyp (Einzel, Doppel, Turnier etc)',
+`res_pla_one` INT( 4 ) NULL COMMENT  'Spieler 1 Id',
+`res_pla_two` INT( 4 ) NULL COMMENT  'Spieler 2 Id',
+`res_pla_three` INT( 4 ) NULL COMMENT  'Spieler 3 Id',
+`res_pla_four` INT( 4 ) NULL COMMENT  'Spieler 4 Id'
+) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+
+CREATE TABLE  `tcbtcr`.`players_pla` (
+`pla_id` INT( 4 ) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT  'Spieler Id',
+`pla_name` VARCHAR( 128 ) NULL COMMENT  'Nachname',
+`pla_vorname` VARCHAR( 128 ) NULL COMMENT  'Vorname'
+) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;
