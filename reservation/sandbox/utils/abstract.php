@@ -44,24 +44,32 @@
 	
 	class Day {
 		protected $hours = array();
-		protected $startDate;
+		protected $day;
 		protected $startTime;
 		protected $endTime;
 		protected $debugger;
 		
 		public function __construct($timestamp, $debugger) {
-			$this->startDate = $timestamp;
+			$this->day = $timestamp;
 			$this->debugger = $debugger;
-			$this->debugger->debug('__construct Day');
+			$this->debugger->debug('__construct Day '.$this->day);
+		}
+		
+		public function getDate() {
+			return $this->day;
+		}
+		
+		public function getHours() {
+			return $this->hours;
 		}
 						
-		public static function getDay($timestamp, $debugger) {
+		public static function getDayList($timestamp, $debugger) {
 			return new Day($timestamp, $debugger);
 		}
 		
 		public function getHoursPerDay($start, $end) {
 			for ($i = $start; $i <= $end; $i++) {
-				$this->hours[] = Hour::getHour(strtotime('+'.$i.' hours', $this->startDate), $this->debugger);
+				$this->hours[] = Hour::getHourList(strtotime('+'.$i.' hours', $this->day), $this->debugger)->getCourtsPerHour(3);
 			}
 			return $this;
 		}
@@ -76,15 +84,19 @@
 		public function __construct($timestamp, $debugger) {
 			$this->hour = $timestamp;
 			$this->debugger = $debugger;
-			$this->debugger->debug('__construct Hour: '.date('Y-m-d H:i', $timestamp));
+			//$this->debugger->debug('__construct Hour: '.date('Y-m-d H:i', $timestamp));
 		}
 		
-		public static function getHour($timestamp, $debugger) {
+		public function getHour() {
+			return $this->hour;
+		}
+		
+		public static function getHourList($timestamp, $debugger) {
 			return new Hour($timestamp, $debugger);
 		}
 		
 		public function getCourtsPerHour($courtCount) {
-			for ($i = 1; $i < $courCount; $i++) {
+			for ($i = 1; $i <= $courtCount; $i++) {
 				$this->bookings[] = new Booking($i, $this->debugger);
 			}
 			return $this;
@@ -99,7 +111,7 @@
 		public function __construct($court, $debugger) {
 			$this->court = $court;
 			$this->debugger = $debugger;
-			$this->debugger->debug('__construct Booking: {$this->court}');
+			//$this->debugger->debug('__construct Booking: Court '.$this->court);
 		}
 	}
 	
