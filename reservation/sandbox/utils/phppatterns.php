@@ -1,10 +1,14 @@
 <?php
 	
 	include('debugger.php');
+	include('abstract.php');
 	
 	use ch\tcbuttisholz\util\debug\TcbTcrPrint;
 	use ch\tcbuttisholz\util\debug\TcbTcrLogger;
 	use ch\tcbuttisholz\util\debug\DebuggerFactory;
+	use ch\tcbuttisholz\util\business\Day;
+	use ch\tcbuttisholz\util\business\Hour;
+	use ch\tcbuttisholz\util\business\Booking;
 	
 	error_reporting(E_ALL);		
 	
@@ -21,11 +25,14 @@
 	}
 	*/
 	
-	define('DEBUG_MODE', 'log');
-	$debugger = DebuggerFactory::createDebugger(DEBUG_MODE, 'TcbTcr.log');
+	$day = strtotime(date('Y-m-d 00:00:00'));
 	
-	print_r($debugger);
-	$debugger->debug('Die Macht sei mit dir: '.get_class($debugger));
+	define('DEBUG_MODE', 'echo');
+	$debugger = DebuggerFactory::createDebugger(DEBUG_MODE, 'TcbTcr.log');
+			
+	$obj = Day::getDay($day, $debugger)->getHoursPerDay(7,10);
+	
+	print_r($obj);
 
 	
 ?>

@@ -44,7 +44,7 @@
 		}
 			
 		public function debug($message) {
-			echo "{$message}\n";
+			echo "{$message}<br />";
 		}
 	}
 	
