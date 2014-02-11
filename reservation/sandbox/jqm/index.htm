@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css">
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+	</head>
+	<body>
+		<!-- Page: Booking overview -->
+		<div id="tcbtcr-overview" data-role="page">
+			<div data-role="header" data-position="fixed">
+				<h1>TC-Buttisholz Platz Reservation</h1>
+				<div href="" data-icon="add" data-role="button" data-shadow="false" data-iconpos="notext" class="ui-btn-right" id="new"></div>
+				<a href="" data-rel="dialog" data-shadow="false" data-icon="info" data-role="button" data-iconpos="notext" class="ui-btn-left" id="about"></a>					
+			</div>
+			<div data-role="content">
+				<ul data-role="listview" data-inset="true">
+					<li data-role="list-divider">Einträge</li>
+					<li>
+						<a href="">Eintrag 1</a>
+					</li>
+					<li>
+						<a href="">Eintrag 2</a>
+					</li>
+					<li>
+						<a href="">Eintrag 3</a>
+					</li>
+					<li>
+						<a href="">Eintrag 4</a>
+					</li>
+					<li data-role="list-divider">Links</li>
+					<li>
+						<a href="http://jquerymobile.com" rel="external">jQuery Mobile</a>
+					</li>
+				</ul>
+			</div>
+			<div data-role="footer">
+				<div data-role="navbar">
+					<ul>
+						<li><a data-icon="info" href="about.html">About</a></li>
+						<li><a data-icon="star" href="">Links</a></li>
+					</ul>					
+				</div>
+			</div>
+		</div>
+		
+		<!-- Page: Bookingform -->
+		<div id="details" data-role="page">
+			<div data-role="header" data-position="fixed">
+				<h1>TC-Buttisholz Platz Reservation</h1>
+				<a href="#tcbtcr-overview" id="home" data-icon="home" data-role="button" data-shadow="false" data-iconpos="notext" class="ui-btn-right jqm-home"></a> 
+			</div>
+			<div data-role="content">
+				<p>Details</p>
+			</div>
+			<div data-role="footer">
+				<div data-role="navbar">
+					<ul>
+						<li><a data-icon="info" href="">About</a></li>
+						<li><a data-icon="star" href="">Links</a></li>
+					</ul>					
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
