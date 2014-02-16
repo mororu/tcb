@@ -1,8 +1,6 @@
 <?php
 	namespace ch\tcbuttisholz\tcbtcr\utils\template;
-	
-	require_once('views/headerTemplate.php');
-	
+
 	class Template {
 		/**
 		 * @private 
@@ -36,7 +34,7 @@
 		 * @author Manuel Wyss
 		 * @version 0.1, 11.02.2014
 		 */
-		public function __construct($template, $debugger) {
+		public function __construct($template, $debugger = null) {
 			$this->debugger = $debugger;
 			$this->setFile($template);
 		}

@@ -55,7 +55,7 @@
 				$this->debugger->debug("class: {$class} doesn't exist");
 				return false;
 			}
-			$command = new $class();
+			$command = new $class($this->debugger);
 			return $command;
 		}
 	}

@@ -1,7 +1,7 @@
 <?php 
 		
 	include("class.php");
-	
+
 	const DEBUG_MODE = 'log';
 	
 	switch (DEBUG_MODE) {
@@ -18,5 +18,9 @@
 	$booking->setLogger($logger);
 	
 	print_r($booking);
+	
+	echo '<br /><br />';
+	
+	echo date('d.m.Y H:i', strtotime('now'));
 	
 ?>

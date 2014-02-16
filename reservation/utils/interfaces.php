@@ -49,6 +49,7 @@
 	* Command interface
 	*/
 	interface Command {
+		public function loadTemplate(Request $request);
 		public function execute(Request $request, Response $response);
 	}	
 	
