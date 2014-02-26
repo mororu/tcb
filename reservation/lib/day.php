@@ -66,7 +66,6 @@
 			}
 			
 			return $day;
-			// Creates the list of the Hours
 		 }
 		 
 		/**

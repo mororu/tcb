@@ -48,6 +48,8 @@
 		 		$this->days[] = Day::createDay($timestamp, $this->debugger);
 				$timestamp = strtotime('+'.$i.' days', $startTime);
 		 	}
+			
+			$this->debugger->debug("Days: {count($this->days)}");
 		 }  
 		 
 		/**

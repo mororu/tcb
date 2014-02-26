@@ -20,9 +20,15 @@
 	include('utils/debugger.php');
 	include('utils/template.php');
 	include('utils/commands/command.php');
+	include('utils/DataBase.php');
+	include('utils/AbstractDomainObject.php');
+	include('utils/AbstractMapper.php');
+	include('lib/Booking.php');
+	include('lib/BookingMapper.php');
 	include('lib/calendar.php');
 	include('lib/day.php');
 	include('lib/hour.php');
+	include('lib/Court.php');
 				
 	/**
 	 * Usings

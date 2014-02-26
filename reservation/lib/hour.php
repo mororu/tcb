@@ -2,6 +2,9 @@
 	
 	namespace ch\tcbuttisholz\tcbtcr\lib;
 	
+	use ch\tcbuttisholz\tcbtcr\lib\Booking;
+	use ch\tcbuttisholz\tcbtcr\lib\Court;
+		
 	class Hour {
 		
 		/**
@@ -50,6 +53,19 @@
 		 }
 		 
 		/**
+		 * @public
+		 * Get the timestamp of the hour
+		 * 
+		 * @return $timestamp
+		 * 
+		 * @author Manuel Wyss
+		 * @version 0.1, 26.02.2014
+		 */
+		 public function getTimestamp() {
+		 	return $this->timestamp;
+		 }
+		 
+		/**
 		 * @public abstract
 		 * Instantiate a new hour object and returns it
 		 * 
@@ -61,7 +77,26 @@
 		 * @version 0.1, 16.02.2014
 		 */
 		 public static function createHour($timestamp, $debugger) {
-		 	return new Hour($timestamp, $debugger);
+		 	$hour = new Hour($timestamp, $debugger);
+			
+			for($i=1; $i<=3; $i++) {
+				$hour->addCourt(Court::createCourt($timestamp, $i));
+			}
+			
+			return $hour;		 	
+		 }
+		 
+		/**
+		 * @public 
+		 * Adds a court object to the courts array
+		 * 
+		 * @param court instance
+		 * 
+		 * @author Manuel Wyss
+		 * @version 0.1, 26.02.2014
+		 */
+		 public function addCourt($court) {
+		 	array_push($this->courts, $court);
 		 }
 		 
 		/**
@@ -91,6 +126,19 @@
 		 public function getEndTime() {
 		 	$this->endTime = strtotime('+ 1 hour', $this->timestamp);
 			return date('H:i', $this->endTime);
+		 }
+		 
+		/**
+		 * @public 
+		 * Returns the court array
+		 * 
+		 * @return $courts
+		 * 
+		 * @author Manuel Wyss
+		 * @version 0.1, 26.02.2014
+		 */
+		 public function getCourts() {
+		 	return $this->courts;
 		 }
 		 
 	}

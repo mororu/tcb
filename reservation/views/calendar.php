@@ -30,6 +30,11 @@
 						<?php foreach($day->getHours() as $hour) { ?>
 							<div data-role="collapsible">
 								<h2><?php echo "{$hour->getStartTime()} - {$hour->getEndTime()}"; ?></h2>
+								
+								<?php foreach($hour->getCourts() as $court) { ?>
+									<p><?php echo $court->getCourtNr(); ?></p>
+								<?php } ?>
+								
 							</div>								
 						<?php } ?>
 						</div>

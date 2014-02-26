@@ -5,8 +5,11 @@
 	use ch\tcbuttisholz\tcbtcr\utils\response\Response;
 	use ch\tcbuttisholz\tcbtcr\utils\template\Template;
 	use ch\tcbuttisholz\tcbtcr\utils\command\WebCommand;
+	use ch\tcbuttisholz\tcbtcr\utils\DataBase;
 	use ch\tcbuttisholz\tcbtcr\lib\Calendar;
-
+	use ch\tcbuttisholz\tcbtcr\lib\BookingMapper;
+	use ch\tcbuttisholz\tcbtcr\lib\Booking;
+	
 	class calendarCommand extends WebCommand {
 		
 		/**
@@ -31,9 +34,40 @@
 		 */
 		public function execute(Request $request, Response $response) {
 			
+			$db = DataBase::getConnection();
+			// 1392807600
+			$bookingMapper = new BookingMapper($db, $this->debugger);
+			
+			$bookings = $bookingMapper->findBookings('1392807600');
+			
+			/*
+			foreach($bookings as $booking) {
+				$response->write("{$booking->getDate()}, {$booking->getCourtNr()} <br />");
+			}*/
+						
 			$this->template = parent::loadTemplate($request);
-			$this->template->calendar = $this->getCalenderContent();
-			$response->write($this->template);			
+			$calendar = $this->getCalenderContent();
+			
+			foreach($calendar->getDays() as $day) {
+				
+				foreach ($day->getHours() as $hour) {
+					
+					foreach ($bookings as $booking) {
+						
+						if($hour->getTimestamp() == $booking->getTimestamp()) {
+						//	$hour->booking = $booking;
+						}
+						//$response->write("Hour: {$hour->getTimestamp()} - {$booking->getTimestamp()} <br />");
+						
+					}
+					
+				}
+				
+			}
+			
+			$this->template->calendar = $calendar;
+			$response->write($this->template);
+									
 		}
 		
 		/**
