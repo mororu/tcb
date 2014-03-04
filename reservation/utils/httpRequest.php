@@ -12,7 +12,9 @@
 	
 	class HttpRequest implements Request {
 		
-		private $parameters;
+		private $parameters = array();
+		
+		public $debugger;
 		
 		public function __construct() {
 			$this->parameters = $_REQUEST;

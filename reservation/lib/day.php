@@ -3,8 +3,10 @@
 	namespace ch\tcbuttisholz\tcbtcr\lib;
 	
 	use ch\tcbuttisholz\tcbtcr\lib\Hour;
+	use \ArrayIterator;
+	use \IteratorAggregate;
 	
-	class Day {
+	class Day implements \IteratorAggregate {
 		
 		/**
 		 * @private
@@ -127,5 +129,18 @@
 		 */
 		 public function addHour($hour) {
 		 	array_push($this->hours, $hour);
+		 }
+		 
+		 /**
+		  * Return an ArrayIterator of the courtcollection
+		  * 
+		  * @access public
+		  * @return ArrayIterator of courtcollection
+		  *
+		  * @author Manuel Wyss
+		  * @version 0.1, 28.02.2014
+		  */
+		 public function getIterator() {
+			 return new ArrayIterator($this->hours);
 		 }
 	}

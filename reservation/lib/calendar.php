@@ -3,8 +3,10 @@
 	namespace ch\tcbuttisholz\tcbtcr\lib;
 	
 	use ch\tcbuttisholz\tcbtcr\lib\Day;
+	use \ArrayIterator;
+	use \IteratorAggregate;
 	
-	class Calendar {
+	class Calendar implements \IteratorAggregate {
 	    /**
 		 * @private 
 		 * Debugger instance
@@ -48,8 +50,6 @@
 		 		$this->days[] = Day::createDay($timestamp, $this->debugger);
 				$timestamp = strtotime('+'.$i.' days', $startTime);
 		 	}
-			
-			$this->debugger->debug("Days: {count($this->days)}");
 		 }  
 		 
 		/**
@@ -63,6 +63,58 @@
 		 */
 		 public function getDays() {
 		 	return $this->days;
+		 }
+		 
+		 
+		 /**
+		  * Returns an ArrayIterator for the daycollection
+		  * 
+		  * @access public
+		  * @return Iterator for day array
+		  *
+		  * @author Manuel Wyss
+		  * @version 0.1, 28.02.2014		  
+		  */
+		 public function getIterator() {
+			 return new ArrayIterator($this->days);
+		 }
+		 
+		 
+		 public $bookings;
+		 
+		 public function compareCalendarWithBookings($bookings) {
+			 
+			 $this->debugger->debug("compareCalendarWithBookings");
+			 
+			 $iterator = $this->getIterator();
+			 $this->bookings = $bookings;
+			 
+			 foreach($iterator as $key=>$object) {
+
+				 $this->recursive($object);				 
+			 }
+		 }
+		 
+		 private function recursive($object) {
+			 		 
+			 if ($object instanceof IteratorAggregate) {
+			 
+				 foreach($object->getIterator() as $key=>$obj) {
+					 $this->recursive($obj);
+				 }
+				 
+			 } else {
+			 	$this->checkCourtBooking($object);	 
+			 }
+		 }
+		 
+		 private function checkCourtBooking($court) {
+								 		 
+			foreach($this->bookings as $booking) {
+				 if ($booking->getId() == $court->getId()) {
+					$court->setBooking($booking);
+				 }
+			}
 		 }
 		
 	}

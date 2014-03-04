@@ -25,6 +25,8 @@
 	include('utils/AbstractMapper.php');
 	include('lib/Booking.php');
 	include('lib/BookingMapper.php');
+	include('lib/Player.php');
+	include('lib/playerMapper.php');
 	include('lib/calendar.php');
 	include('lib/day.php');
 	include('lib/hour.php');
@@ -62,6 +64,7 @@
 	$controller = new FrontController($resolver, $debugger);
 
 	$request = new HttpRequest();
+	$request->debugger = $debugger;
 	$response = new HttpResponse(); 
 	
 	$controller->handleRequest($request, $response);

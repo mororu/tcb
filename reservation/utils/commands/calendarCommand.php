@@ -34,40 +34,20 @@
 		 */
 		public function execute(Request $request, Response $response) {
 			
-			$db = DataBase::getConnection();
-			// 1392807600
-			$bookingMapper = new BookingMapper($db, $this->debugger);
-			
-			$bookings = $bookingMapper->findBookings('1392807600');
-			
-			/*
-			foreach($bookings as $booking) {
-				$response->write("{$booking->getDate()}, {$booking->getCourtNr()} <br />");
-			}*/
-						
-			$this->template = parent::loadTemplate($request);
-			$calendar = $this->getCalenderContent();
-			
-			foreach($calendar->getDays() as $day) {
+			if($request->issetParameter('saveBooking')) {
+				$response->write('post');
+			} else {
+				$db = DataBase::getConnection();
+				$bookingMapper = new BookingMapper($db, $this->debugger);			
+				$bookings = $bookingMapper->findBookings(strtotime('today midnight'));
+				$this->template = parent::loadTemplate($request);
+				$calendar = $this->getCalenderContent();
 				
-				foreach ($day->getHours() as $hour) {
-					
-					foreach ($bookings as $booking) {
-						
-						if($hour->getTimestamp() == $booking->getTimestamp()) {
-						//	$hour->booking = $booking;
-						}
-						//$response->write("Hour: {$hour->getTimestamp()} - {$booking->getTimestamp()} <br />");
-						
-					}
-					
-				}
+				$calendar->compareCalendarWithBookings($bookings);
 				
+				$this->template->calendar = $calendar;
+				$response->write($this->template);									
 			}
-			
-			$this->template->calendar = $calendar;
-			$response->write($this->template);
-									
 		}
 		
 		/**

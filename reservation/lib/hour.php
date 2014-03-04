@@ -4,8 +4,10 @@
 	
 	use ch\tcbuttisholz\tcbtcr\lib\Booking;
 	use ch\tcbuttisholz\tcbtcr\lib\Court;
+	use \ArrayIterator;
+	use \IteratorAggregate;
 		
-	class Hour {
+	class Hour implements \IteratorAggregate {
 		
 		/**
 		 * @private 
@@ -139,6 +141,20 @@
 		 */
 		 public function getCourts() {
 		 	return $this->courts;
+		 }
+		 
+		 
+		 /**
+		  * Return an ArrayIterator of the courtcollection
+		  * 
+		  * @access public
+		  * @return ArrayIterator of courtcollection
+		  *
+		  * @author Manuel Wyss
+		  * @version 0.1, 28.02.2014
+		  */
+		 public function getIterator() {
+			 return new ArrayIterator($this->courts);
 		 }
 		 
 	}

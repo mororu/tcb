@@ -1,5 +1,5 @@
 <?php 
-		
+	/*	
 	include("class.php");
 
 	const DEBUG_MODE = 'log';
@@ -20,7 +20,9 @@
 	print_r($booking);
 	
 	echo '<br /><br />';
+	*/
 	
-	echo date('d.m.Y H:i', strtotime('now'));
+	$date = new DateTime('2014-03-01 13:00');
+	echo $date->getTimestamp();
 	
 ?>

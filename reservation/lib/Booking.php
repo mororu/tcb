@@ -62,19 +62,6 @@
 		 }
 		 
 		/**
-		 * @public 
-		 * setId
-		 * 
-		 * @param $id Id of the booking
-		 * 
-		 * @author Manuel Wyss
-		 * @version 0.1, 22.02.2014 
-		 */
-		 public function setId($id) {
-		 	$this->id = $id;
-		 }
-		 
-		/**
 		 * @public
 		 * Set the timestamp 
 		 * 
@@ -206,15 +193,28 @@
 		
 		/**
 		 * @public
-		 * Adds a player to the players array
+		 * Sets the player list
 		 * 
-		 * @param $player
+		 * @param $players
 		 * 
 		 * @author Manuel Wyss
-		 * @version 0.1, 22.02.2014
+		 * @version 0.1, 02.03.2014
 		 */
-		 public function addPlayer(Player $player) {
-		 	array_push($this->players, $player);
+		 public function setPlayers($players) {
+		 	$this->players = $players;
+		 }
+		 
+		/**
+		 * @public
+		 * Returns the player list
+		 * 
+		 * @param $players
+		 * 
+		 * @author Manuel Wyss
+		 * @version 0.1, 02.03.2014
+		 */
+		 public function getPlayers() {
+			 return $this->players;
 		 }
 		 
 	}

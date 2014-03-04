@@ -9,14 +9,18 @@
 		private static $instance;
 		private $pdo;
 		
-		private $db_host = 'localhost';
-		private $db_user = 'root';
-		private $db_pass = 'root';
-		private $db_name = 'supermo_test';
+		private $db_host;
+		private $db_user;
+		private $db_pass;
+		private $db_name;
+		private $db_socket;
 		
 		private function __construct() {
+			
+			$this->readConfig();
+			
 			try {
-				$this->pdo = new PDO("mysql:host=$this->db_host;dbname=$this->db_name;charset=utf8;unix_socket=/Applications/MAMP/tmp/mysql/mysql.sock",
+				$this->pdo = new PDO("mysql:host=$this->db_host;dbname=$this->db_name;charset=utf8;unix_socket=$this->db_socket",
 									$this->db_user,
 									$this->db_pass
 									);	
@@ -27,6 +31,18 @@
 			} catch(Exception $e) {
 				die("Error: ".$e->getMessage());
 			}
+		}
+		
+		private function readConfig() {
+			
+			$configs = parse_ini_file('include/config.ini');
+			
+			$this->db_host = $configs['host'];
+			$this->db_user = $configs['user'];
+			$this->db_pass = $configs['password'];
+			$this->db_name = $configs['dbname'];
+			$this->db_socket = $configs['socket'];
+			
 		}
 		
 		public static function getConnection() {

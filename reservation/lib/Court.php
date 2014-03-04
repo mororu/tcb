@@ -60,6 +60,20 @@
 		 	return new Court($timestamp, $courtNr);
 		 }
 		 
+		 
+		 /**
+		  * Returns the court id.
+		  * 
+		  * @access public
+		  * @return $id
+		  *
+		  * @author Manuel Wyss
+		  * @version 0.1, 01.03.2014		  
+		  */
+		 public function getId() {
+			 return $this->id;
+		 }
+		 
 		/**
 		 * @public 
 		 * Set the booking property
@@ -84,6 +98,32 @@
 		 */
 		 public function getBooking() {
 		 	return $this->booking;
+		 }
+		 
+		 /**
+		 * @public 
+		 * Set the courNr property
+		 * 
+		 * @param $courtNr
+		 * 
+		 * @author Manuel Wyss
+		 * @version 0.1, 02.03.2014
+		 */
+		 public function setCourNr($courtNr) {
+			 $this->courtNr = $courtNr;
+		 }
+		 
+		/**
+		 * @public
+		 * Returns the courtNr
+		 * 
+		 * @return $courtNr
+		 * 
+		 * @author Manuel Wyss
+		 * @version 0.1, 02.03.2014
+		 */
+		 public function getCourtNr() {
+		 	return $this->courtNr;
 		 }
 	}
 ?>

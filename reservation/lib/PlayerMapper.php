@@ -4,10 +4,9 @@
 			
 	use ch\tcbuttisholz\tcbtcr\utils\AbstractMapper;
 	use ch\tcbuttisholz\tcbtcr\utils\AbstractDomainObject;
-	use ch\tcbuttisholz\tcbtcr\lib\Booking;
-	use ch\tcbuttisholz\tcbtcr\lib\PlayerMapper;
+	use ch\tcbuttisholz\tcbtcr\lib\Player;
 	
-	class BookingMapper extends AbstractMapper {
+	class PlayerMapper extends AbstractMapper {
 		
 		/**
 		 * @private
@@ -47,7 +46,7 @@
 		 */
 		 public function findById($id) {
 		 	
-			$statment = "SELECT * FROM bookings WHERE boo_id = ?";
+			$statment = "SELECT * FROM players WHERE pla_id = ?";
 			$data = array($id);
 			
 			$row = $this->db->select($statment, $data);
@@ -57,39 +56,36 @@
 		 
 		/**
 		 * @public 
-		 * Get all bookings for the next week 
+		 * Get all players for a match
 		 * 
-		 * @param $start start time
-		 * @return $bookings booking records
+		 * @param $bookingId
+		 * @return player records
 		 * 
 		 * @author Manuel Wyss
-		 * @version 0.1, 26.02.2014
+		 * @version 0.1, 02.03.2014
 		 */
-		 public function findBookings($start) {
+		 public function findPlayers($bookingId) {
+		 
+		 	$this->debugger->debug("findPlayers: {$bookingId}");
 		 		
-		 	$bookings = array();	
-		 	$end = strtotime('+10 day', $start);
-			$data = array($start, $end);
+		 	$players = array();	
+		 	$data = array($bookingId);
 			
-			$statement = "SELECT * FROM bookings WHERE boo_timestamp >= ? AND boo_timestamp <= ?";
+			$statement = "SELECT pla_id, pla_name, pla_firstname, pla_email 
+							FROM players 
+						   INNER JOIN matches ON mat_pla_id = pla_id
+						   INNER JOIN bookings ON mat_boo_id = boo_id
+						   WHERE boo_id = ?";
+						   
 			$records = $this->db->select($statement, $data);
+			$this->debugger->debug("Players found: ".count($records));
 			
 			foreach($records as $row) {
-				$booking = $this->create($row);
-				$this->loadPlayers($booking);
-				$bookings[] = $booking;				
+				$player = $this->create($row);
+				$players[] = $player;
 			}
 			
-			return $bookings;
-		 }
-		 
-		 private function loadPlayers($booking) {
-			 
-			 $this->debugger->debug("loadPlayers with id: {$booking->getId()}");
-			 
-			 $playerMapper = new PlayerMapper($this->db, $this->debugger);
-			 $booking->setPlayers($playerMapper->findPlayers($booking->getId()));
-			 
+			return $players;
 		 }
 		 
 		/**
@@ -104,12 +100,10 @@
 		 * @version 0.1, 26.02.2014
 		 */
 		 public function populate(AbstractDomainObject $obj, $data) {
-		 	$obj->setId($data->boo_id);
-			$obj->setTimestamp($data->boo_timestamp);
-			$obj->setDate($data->boo_date);
-			$obj->setCourtNr($data->boo_court);
-			$obj->setDescription($data->boo_description);
-			$obj->setBookingType($data->boo_type);
+		 	$obj->setId($data->pla_id);
+		 	$obj->setName($data->pla_name);
+		 	$obj->setFirstName($data->pla_firstname);
+		 	$obj->setEmail($data->pla_email);
 			
 			return $obj;
 		 }
@@ -124,7 +118,7 @@
 		 * @version 0.1, 26.02.2014
 		 */
 		 protected function createObject() {
-		 	return new Booking();
+		 	return new Player();
 		 }
 		 
 		/**
@@ -137,7 +131,7 @@
 		 * @version 0.1, 26.02.2014
 		 */
 		 protected function insertObject(AbstractDomainObject $obj) {
-		/* 	$data = array($obj->getLastName(), $obj->getFirstName(), $obj->getEmail());
+		 /*	$data = array($obj->getLastName(), $obj->getFirstName(), $obj->getEmail());
 			$statement = "INSERT INTO players (pla_name, pla_surname, pla_email) VALUES (?,?,?)";
 			$this->db->modify($statement, $data);*/
 		 }
@@ -152,7 +146,7 @@
 		 * @version 0.1, 26.02.2014
 		 */
 		 protected function updateObject(AbstractDomainObject $obj) {
-	/*	 	$data = array($obj->getLastName(), $obj->getFirstName(), $obj->getEmail(), $obj->getId());
+		 	/*$data = array($obj->getLastName(), $obj->getFirstName(), $obj->getEmail(), $obj->getId());
 			$statement = "UPDATE players SET pla_name = ?, pla_surname = ?, pla_email = ? WHERE pla_id = ?";
 			$this->db->modify($statement, $data);*/
 		 }
@@ -167,7 +161,7 @@
 		 * @version 0.1, 26.02.2014
 		 */
 		 protected function deleteObject(AbstractDomainObject $obj) {
-	/*	 	$data = array($obj->getId());
+		 /*	$data = array($obj->getId());
 			$statement = "DELETE FROM players WHERE pla_id = ?";
 			$this->db->modify($statement, $data);*/
 		 }
