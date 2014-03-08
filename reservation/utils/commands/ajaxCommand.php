@@ -36,12 +36,12 @@
 		
 			if ($request->issetParameter('term')) {
 			
-				$statement = 'SELECT pla_id, pla_name, pla_firstname FROM players WHERE pla_name LIKE :term OR pla_firstname LIKE :term';
+				$statement = 'SELECT pla_id, pla_fullname FROM players WHERE pla_fullname LIKE :term';
 				$data = array('term' => '%'.$request->getParameter('term').'%');
 				$records = $db->select($statement, $data);
 				
 				foreach($records as $record) {
-					$return[] = array('id' => $record->pla_id, 'name' => $record->pla_name. ' ' .$record->pla_firstname);
+					$return[] = array('id' => $record->pla_id, 'name' => $record->pla_fullname);
 				}
 				
 				$response->write(json_encode($return));

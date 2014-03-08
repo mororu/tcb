@@ -35,6 +35,10 @@
 			return array_keys($this->parameters);
 		}
 		
+		public function getAllParameter() {
+			return $this->parameters;
+		}
+		
 		public function getHeader($name) {
 			$name = 'HTTP_'.strtoupper(str_replace('-', '_', $name));
 			if (isset($_SERVER[$name])) {

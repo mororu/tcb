@@ -29,8 +29,16 @@
 		 * @version 0.1, 02.03.2014 
 		 */
 		public function execute(Request $request, Response $response) {
-			$this->debugger->debug("Execute MatchType");
-			$this->template = parent::loadTemplate($request);
-			$response->write($this->template);									
+
+			$this->template = parent::loadTemplate($request);			
+		
+			if($request->issetParameter('booid')) {
+				$this->template->bookingId = $request->getParameter('booid');
+			} else {
+				$this->template->bookingId = 0;
+				$this->debugger->debug('Keine Booking Id');				
+			}
+
+			$response->write($this->template);	
 		}
 	}

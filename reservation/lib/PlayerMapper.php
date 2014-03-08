@@ -54,6 +54,34 @@
 			return $this->create($row[0]);
 		 }
 		 
+		/*
+		 * @public
+		 * Returns the searched player by the name
+		 *
+		 * @param $name
+		 * @return player object
+		 *
+		 * @author Manuel Wyss
+		 * @version 0.1, 05.03.2014
+		 */
+		 public function findByName($name) {
+		
+			$statement = "SELECT * FROM players WHERE pla_fullname LIKE :name";
+			
+
+			$data = array('name' => '%'.$name.'%');
+			
+			$row = $this->db->select($statement, $data);
+			
+			$this->debugger->debug("Players with name: {$name} -> ".count($row));
+			
+			if (count($row) == 1) {
+				return $this->create($row[0]);				
+			} else {
+				return $this->create();	
+			}
+		 }
+		 
 		/**
 		 * @public 
 		 * Get all players for a match
@@ -71,7 +99,7 @@
 		 	$players = array();	
 		 	$data = array($bookingId);
 			
-			$statement = "SELECT pla_id, pla_name, pla_firstname, pla_email 
+			$statement = "SELECT pla_id, pla_fullname, pla_email 
 							FROM players 
 						   INNER JOIN matches ON mat_pla_id = pla_id
 						   INNER JOIN bookings ON mat_boo_id = boo_id
@@ -100,11 +128,11 @@
 		 * @version 0.1, 26.02.2014
 		 */
 		 public function populate(AbstractDomainObject $obj, $data) {
-		 	$obj->setId($data->pla_id);
-		 	$obj->setName($data->pla_name);
-		 	$obj->setFirstName($data->pla_firstname);
+		 	$obj->setNewPlayer(false);
+		 	$this->debugger->debug("Populate: {$data->pla_fullname}");
+			$obj->setId($data->pla_id);
+		 	$obj->setName($data->pla_fullname);
 		 	$obj->setEmail($data->pla_email);
-			
 			return $obj;
 		 }
 		 
@@ -118,7 +146,7 @@
 		 * @version 0.1, 26.02.2014
 		 */
 		 protected function createObject() {
-		 	return new Player();
+			return new Player();
 		 }
 		 
 		/**
@@ -131,9 +159,12 @@
 		 * @version 0.1, 26.02.2014
 		 */
 		 protected function insertObject(AbstractDomainObject $obj) {
-		 /*	$data = array($obj->getLastName(), $obj->getFirstName(), $obj->getEmail());
-			$statement = "INSERT INTO players (pla_name, pla_surname, pla_email) VALUES (?,?,?)";
-			$this->db->modify($statement, $data);*/
+		 	$this->debugger->debug("Insert player: {$obj->getName()} in player table");
+		 	$data = array($obj->getName(), $obj->getEmail());
+			$statement = "INSERT INTO players (pla_fullname, pla_email) VALUES (?,?)";
+			$plaId = $this->db->modify($statement, $data);
+			$this->debugger->debug("Inserted Player id: {$plaId}");
+			return $plaId;
 		 }
 		 
 		/**
@@ -146,9 +177,9 @@
 		 * @version 0.1, 26.02.2014
 		 */
 		 protected function updateObject(AbstractDomainObject $obj) {
-		 	/*$data = array($obj->getLastName(), $obj->getFirstName(), $obj->getEmail(), $obj->getId());
-			$statement = "UPDATE players SET pla_name = ?, pla_surname = ?, pla_email = ? WHERE pla_id = ?";
-			$this->db->modify($statement, $data);*/
+		 	$data = array($obj->getName(), $obj->getEmail(), $obj->getId());
+			$statement = "UPDATE players SET pla_fullname = ?, pla_email = ? WHERE pla_id = ?";
+			$this->db->modify($statement, $data);
 		 }
 		 
 		 /**
@@ -161,12 +192,10 @@
 		 * @version 0.1, 26.02.2014
 		 */
 		 protected function deleteObject(AbstractDomainObject $obj) {
-		 /*	$data = array($obj->getId());
+		 	$data = array($obj->getId());
 			$statement = "DELETE FROM players WHERE pla_id = ?";
-			$this->db->modify($statement, $data);*/
-		 }
-		 
-		 
+			$this->db->modify($statement, $data);
+		 } 
 	}
 
 ?>

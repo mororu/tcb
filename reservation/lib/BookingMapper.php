@@ -6,6 +6,8 @@
 	use ch\tcbuttisholz\tcbtcr\utils\AbstractDomainObject;
 	use ch\tcbuttisholz\tcbtcr\lib\Booking;
 	use ch\tcbuttisholz\tcbtcr\lib\PlayerMapper;
+	use ch\tcbuttisholz\tcbtcr\lib\Match;
+	use ch\tcbuttisholz\tcbtcr\lib\MatchMapper;
 	
 	class BookingMapper extends AbstractMapper {
 		
@@ -52,7 +54,11 @@
 			
 			$row = $this->db->select($statment, $data);
 			
-			return $this->create($row[0]);
+			if (count($row) == 1) {
+				return $this->create($row[0]);				
+			} else {
+				return $this->create();	
+			}
 		 }
 		 
 		/**
@@ -84,9 +90,7 @@
 		 }
 		 
 		 private function loadPlayers($booking) {
-			 
-			 $this->debugger->debug("loadPlayers with id: {$booking->getId()}");
-			 
+			 			 
 			 $playerMapper = new PlayerMapper($this->db, $this->debugger);
 			 $booking->setPlayers($playerMapper->findPlayers($booking->getId()));
 			 
@@ -104,6 +108,7 @@
 		 * @version 0.1, 26.02.2014
 		 */
 		 public function populate(AbstractDomainObject $obj, $data) {
+		 	$obj->setBookingExists(false);
 		 	$obj->setId($data->boo_id);
 			$obj->setTimestamp($data->boo_timestamp);
 			$obj->setDate($data->boo_date);
@@ -129,17 +134,44 @@
 		 
 		/**
 		 * @protected 
-		 * Inserts a player into the database
+		 * Inserts a booking into the database
 		 * 
 		 * @param $obj
 		 * 
 		 * @author Manuel Wyss
-		 * @version 0.1, 26.02.2014
+		 * @version 0.1, 08.03.2014
 		 */
 		 protected function insertObject(AbstractDomainObject $obj) {
-		/* 	$data = array($obj->getLastName(), $obj->getFirstName(), $obj->getEmail());
-			$statement = "INSERT INTO players (pla_name, pla_surname, pla_email) VALUES (?,?,?)";
-			$this->db->modify($statement, $data);*/
+		 	$data = array($obj->getBookingId(), $obj->getTimestamp(), $obj->getDate(), $obj->getStartTime(), $obj->getCourtNr(), $obj->getDescription(), $obj->getBookingType());
+			$statement = "INSERT INTO bookings (boo_id, boo_timestamp, boo_date, boo_time, boo_court, boo_description, boo_type) VALUES (?,?,?,?,?,?,?)";
+			$this->db->modify($statement, $data);
+			
+			// Check if the player list is not empty
+			if(count($obj->getPlayerIdList()) > 0) {
+				$this->createBookingPlayerRelation($obj->getPlayerIdList(), $obj->getBookingId());	
+			}
+			
+			return $obj->getBookingId();
+		 }
+		 
+		 
+		 /**
+		  * Creates the matches record for the database
+		  * 
+		  * @access private
+		  * @param mixed $playerList
+		  * @return void
+		  */
+		 private function createBookingPlayerRelation($playerList, $bookingId) {
+
+			 $matchMapper = new MatchMapper($this->db, $this->debugger);			 
+
+			 foreach($playerList as $playerId) {		
+				 $match = new Match();
+				 $match->setBookingId($bookingId);
+				 $match->setPlayerId($playerId);
+				 $matchMapper->save($match);
+			 }			 
 		 }
 		 
 		/**
@@ -152,24 +184,22 @@
 		 * @version 0.1, 26.02.2014
 		 */
 		 protected function updateObject(AbstractDomainObject $obj) {
-	/*	 	$data = array($obj->getLastName(), $obj->getFirstName(), $obj->getEmail(), $obj->getId());
-			$statement = "UPDATE players SET pla_name = ?, pla_surname = ?, pla_email = ? WHERE pla_id = ?";
-			$this->db->modify($statement, $data);*/
+
 		 }
 		 
 		 /**
 		 * @protected 
-		 * Deletes a player record
+		 * Deletes a booking record
 		 * 
 		 * @param $obj
 		 * 
 		 * @author Manuel Wyss
-		 * @version 0.1, 26.02.2014
+		 * @version 0.1, 08.03.2014
 		 */
 		 protected function deleteObject(AbstractDomainObject $obj) {
-	/*	 	$data = array($obj->getId());
-			$statement = "DELETE FROM players WHERE pla_id = ?";
-			$this->db->modify($statement, $data);*/
+		 	$data = array($obj->getId());
+			$statement = "DELETE FROM booking WHERE boo_id = ?";
+			$this->db->modify($statement, $data);
 		 }
 		 
 		 

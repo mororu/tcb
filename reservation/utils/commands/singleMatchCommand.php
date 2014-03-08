@@ -29,8 +29,15 @@
 		 * @version 0.1, 02.03.2014 
 		 */
 		public function execute(Request $request, Response $response) {
-			$this->debugger->debug("Execute SingleMatchCommand");
 			$this->template = parent::loadTemplate($request);
+			
+			if($request->issetParameter('booid') && $request->issetParameter('type')) {
+				$this->template->bookingId = $request->getParameter('booid');
+				$this->template->matchType = $request->getParameter('type');
+			} else {
+				$this->template->bookingId = 0;
+			}
+			
 			$response->write($this->template);									
 		}
 	}

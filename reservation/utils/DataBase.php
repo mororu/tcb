@@ -63,6 +63,7 @@
 			try {
 				$sth = $this->pdo->prepare($statement);
 				$sth->execute($data);
+				return $this->pdo->lastInsertId();
 			} catch(Exception $e) {
 				die("ERROR: ".$e->getMessage());
 			}

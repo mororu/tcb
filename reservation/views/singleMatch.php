@@ -23,16 +23,19 @@
 			
 			<div data-role="content">
 				
+				<?php if ($this->bookingId != 0) { ?>
+				
 				<form id="singleMatch" name="bookingForm" action="?cmd=calendar" method="post" data-ajax="false">
 					<div id="player1" class="playerList">
-						<input class="search" id="playerSearch1" type="text" value="" data-clear-btn="true" data-mini="false" placeholder="Spieler 1">
+						<input class="search" id="playerSearch1" name="playerSearch1" type="text" value="" data-clear-btn="true" data-mini="false" placeholder="Spieler 1" autocomplete="off">
 					</div>
 					<div id="player2" class="playerList">
-						<input class="search" id="playerSearch2" type="text" value="" data-clear-btn="true" data-mini="false" placeholder="Spieler 2">
+						<input class="search" id="playerSearch2" name="playerSearch2" type="text" value="" data-clear-btn="true" data-mini="false" placeholder="Spieler 2" autocomplete="off">
 					</div>
 					<ul data-role="listview" data-inset="true" id="result" class="resultList"></ul>
-					<div id="description">
-						<textarea cols="100" rows="8" name="matchDescription" id="matchDescription" placeholder="Beschreibung"></textarea>
+					<div id="hiddenArea">
+						<input type="hidden" value="<?php echo $this->bookingId; ?>" id="bookingId" name="bookingId" />
+						<input type="hidden" value="<?php echo $this->matchType; ?>" id="matchType" name="matchType" />
 					</div>
 					<div id="submit">
 						<input type="submit" id="saveBooking" name="saveBooking" value="Reservation speichern">
@@ -41,6 +44,10 @@
 						<input id="cancelBooking" type="button" name="cancelBooking" value="Abbrechen">
 					</div>
 				</form>		
+				
+				<?php } else { ?>
+				<a href="?cmd=calendar" data-role="button">Es ist ein Fehler aufgetreten. Zur&uuml;ck zur &Uuml;bersicht</a>
+				<?php } ?>
 			</div>
 			
 			<footer>

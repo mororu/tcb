@@ -21,18 +21,18 @@
 		 * Player name
 		 */
 		 private $name;
-		 
-		/**
-		 * @private 
-		 * Player firstname
-		 */
-		 private $firstName;
-		 
+
 		/** 
 		 * @private
 		 * Player email adresse
 		 */
 		 private $email;
+		 
+		/** 
+		 * @private
+		 * Flag for new player
+		 */
+		 private $newPlayer = true; 
 		 
 		/**
 		 * @public 
@@ -52,7 +52,7 @@
 		 * @version 0.1, 02.03.2014
 		 */
 		 public function setName($name) {
-		 	$this->name = $name;
+			 $this->name = $name;
 		 }
 		 
 		 /**
@@ -67,33 +67,7 @@
 		 public function getName() {
 		 	return $this->name;
 		 }
-		
-		/**
-		 * @public
-		 * Set the firstname for the player
-		 * 
-		 * @param $firstname
-		 * 
-		 * @author Manuel Wyss
-		 * @version 0.1, 02.03.2014
-		 */
-		 public function setFirstName($firstname) {
-		 	$this->firstName = $firstname;
-		 }
-		 
-		 /**
-		 * @public
-		 * Returns the firstname of the player
-		 * 
-		 * @return $firstname
-		 * 
-		 * @author Manuel Wyss
-		 * @version 0.1, 02.03.2014
-		 */
-		 public function getFirstName() {
-		 	return $this->firstName;
-		 }
-		 
+					 
 		 /**
 		 * @public
 		 * Set the player email 
@@ -120,18 +94,31 @@
 		 	return $this->email;
 		 }
 		 
-		/**
+		 /**
 		 * @public
-		 * Returns the full name of the player
+		 * Returns the new creation flag of the player
 		 * 
-		 * @return firstname + name
+		 * @return newPlayer
 		 * 
 		 * @author Manuel Wyss
-		 * @version 0.1, 02.03.2014
+		 * @version 0.1, 05.03.2014
 		 */
-		 public function getFullName() {
-		 	return $this->firstName . ' ' . $this->name;
-		 }	 
+		 public function getNewPlayer() {
+		 	return $this->newPlayer;
+		 }
+		 
+		/**
+		 * @public
+		 * Set the newPlayer flag, if the player is not in the database
+		 * 
+		 * @param newPlayer
+		 * 
+		 * @author Manuel Wyss
+		 * @version 0.1, 05.03.2014
+		 */
+		 public function setNewPlayer($newPlayer) {
+		 	$this->newPlayer = $newPlayer;
+		 }
 		 
 	}
 	

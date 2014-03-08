@@ -84,8 +84,6 @@
 		 
 		 public function compareCalendarWithBookings($bookings) {
 			 
-			 $this->debugger->debug("compareCalendarWithBookings");
-			 
 			 $iterator = $this->getIterator();
 			 $this->bookings = $bookings;
 			 

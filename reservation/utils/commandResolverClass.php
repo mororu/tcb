@@ -45,8 +45,6 @@
 		 */
 		public function loadCommand($cmdName) {
 		
-			$this->debugger->debug("loadCommand: {$cmdName}");
-			
 			$class = "ch\\tcbuttisholz\\tcbtcr\\utils\\command\\{$cmdName}Command";
 			$file = $this->path . "/{$cmdName}Command.php";
 			if (!file_exists($file)) {

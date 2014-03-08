@@ -26,7 +26,9 @@
 	include('lib/Booking.php');
 	include('lib/BookingMapper.php');
 	include('lib/Player.php');
-	include('lib/playerMapper.php');
+	include('lib/PlayerMapper.php');
+	include('lib/Match.php');
+	include('lib/MatchMapper.php');
 	include('lib/calendar.php');
 	include('lib/day.php');
 	include('lib/hour.php');

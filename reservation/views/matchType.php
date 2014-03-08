@@ -21,10 +21,13 @@
 			
 			<div data-role="content">
 				
-				<a href="?cmd=singleMatch" data-role="button" data-ajax="false">Einzel Match</a>
-				<a href="" data-role="button">Doppel Match</a>
-				<a href="" data-role="button">Training, Turnier, diverses ...</a>
-								
+				<?php if ($this->bookingId != 0) {  ?>
+					<a href="?cmd=singleMatch&type=0&booid=<?php echo $this->bookingId; ?>" data-role="button" data-ajax="false">Einzel Match</a>
+					<a href="" data-role="button">Doppel Match</a>
+					<a href="" data-role="button">Training, Turnier, diverses ...</a>
+				<?php } else { ?>	
+					<a href="?cmd=calendar" data-role="button">Es ist ein Fehler aufgetreten. Zur&uuml;ck zur &Uuml;bersicht</a>
+				<?php } ?>								
 			</div>
 			
 			<footer>

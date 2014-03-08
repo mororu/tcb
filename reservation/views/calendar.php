@@ -56,11 +56,11 @@
 												<?php
 													$loop = 0;
 													foreach ($court->getBooking()->getPlayers() as $player) {
-														echo "{$player->getFullName()}";
+														echo "{$player->getName()}";
 														if($loop < $playerCount - 1) {
 															echo " - ";
 														}
-														$loop++;													
+														$loop++;												
 													}
 												}											
 												?>
@@ -70,7 +70,9 @@
 												} else {
 											?>
 										<td id="<?php echo $court->getId(); ?>">										
-											<a href="?cmd=matchType" id="<?php echo $court->getId(); ?>">Platz <?php echo $court->getCourtNr(); ?> Reservieren</a>
+											<a href="?cmd=matchType&booid=<?php echo $court->getId(); ?>" id="<?php echo $court->getId(); ?>">
+												Platz <?php echo $court->getCourtNr(); ?> Reservieren
+											</a>
 										</td>
 										<?php
 												}

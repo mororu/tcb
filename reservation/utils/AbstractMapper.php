@@ -39,7 +39,7 @@
 		 public function save(AbstractDomainObject $obj) {
 		 	
 			if(is_null($obj->getId())) {
-				$this->insertObject($obj);
+				return $this->insertObject($obj);
 			} else {
 				$this->updateObject($obj);
 			}

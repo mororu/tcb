@@ -17,12 +17,14 @@
 		
 		public function loadTemplate(Request $request) {
 			if ($request->issetParameter('cmd')) {
-				$tpl = new Template('views/'.$request->getParameter('cmd').'.php', $this->debugger);
+				$template = $request->getParameter('cmd').'.php';
 			} else {
 				// Load 404 Error Page
-				$this->debugger->debug("Template {$request->getParameter('cmd')} nicht gefunden!");
-				$this->pageNotFound = true;
+				$this->debugger->debug("Template wurde nicht gefunden! Laden des Default Template.");
+				$template = "calendar.php";
 			}
+			
+			$tpl = new Template('views/'.$template, $this->debugger);
 			return $tpl;
 		}
 		
