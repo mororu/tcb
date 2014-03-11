@@ -35,6 +35,12 @@
 					<div id="player2" class="playerList">
 						<input class="search" id="playerSearch2" name="playerSearch2" type="text" value="" data-clear-btn="true" data-mini="false" placeholder="Spieler 2" autocomplete="off">
 					</div>
+					<div id="player3" class="playerList">
+						<input class="search" id="playerSearch3" name="playerSearch3" type="text" value="" data-clear-btn="true" data-mini="false" placeholder="Spieler 3" autocomplete="off">
+					</div>
+					<div id="player4" class="playerList">
+						<input class="search" id="playerSearch4" name="playerSearch4" type="text" value="" data-clear-btn="true" data-mini="false" placeholder="Spieler 4" autocomplete="off">
+					</div>
 					<ul data-role="listview" data-inset="true" id="result" class="resultList"></ul>
 					<div id="hiddenArea">
 						<input type="hidden" value="<?php echo $this->bookingId; ?>" id="bookingId" name="bookingId" />

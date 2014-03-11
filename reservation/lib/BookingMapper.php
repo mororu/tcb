@@ -60,7 +60,7 @@
 				return $this->create();	
 			}
 		 }
-		 
+		  
 		/**
 		 * @public 
 		 * Get all bookings for the next week 
@@ -89,11 +89,11 @@
 			return $bookings;
 		 }
 		 
-		 private function loadPlayers($booking) {
+		 public function loadPlayers($booking) {
 			 			 
 			 $playerMapper = new PlayerMapper($this->db, $this->debugger);
 			 $booking->setPlayers($playerMapper->findPlayers($booking->getId()));
-			 
+			 return $booking;
 		 }
 		 
 		/**
@@ -115,6 +115,8 @@
 			$obj->setCourtNr($data->boo_court);
 			$obj->setDescription($data->boo_description);
 			$obj->setBookingType($data->boo_type);
+			
+			$this->debugger->debug($data->boo_description);
 			
 			return $obj;
 		 }

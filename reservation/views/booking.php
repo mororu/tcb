@@ -22,16 +22,27 @@
 			
 			<div data-role="content">
 				
-				<?php if ($this->bookingId != 0) {  ?>	
-					<h2 style="text-align: center;"><?php echo "{$this->day}, {$this->start} - {$this->end} Uhr";?></h2>
+				<h2 style="text-align: center;"><?php echo "{$this->day}, {$this->start} - {$this->end} Uhr";?></h2>
+				
+				<div>
+					<?php if (count($this->booking->getPlayers())>0) { 						
+							foreach($this->booking->getPlayers() as $player) { ?>
+						<a href="#" data-role="button">
+						<?php echo $player->getName(); ?>
+						</a>
+					<?php 
+							}
+						} else {
+					?>
+						<a href="#" data-role="button">
+						<?php echo $this->booking->getDescription(); ?>
+						</a>					
+					<?php } ?>
+				</div>
+				
+				<a href="index.php?cmd=calendar" data-role="button" data-icon="home" data-iconpos="top">Zur&uuml;ck zur &Uuml;bersicht</a>
 					
-					<a href="index.php?cmd=singleMatch&type=0&booid=<?php echo $this->bookingId; ?>" data-role="button" data-ajax="false">Einzel Match</a>
-					<a href="index.php?cmd=doubleMatch&type=1&booid=<?php echo $this->bookingId; ?>" data-role="button" data-ajax="false">Doppel Match</a>
-					<a href="index.php?cmd=training&type=2&booid=<?php echo $this->bookingId; ?>" data-role="button" data-ajax="false">Training, Turnier, diverses ...</a>
-					<a href="?cmd=calendar" data-role="button">Reservation Abbrechen</a>
-				<?php } else { ?>	
-					<a href="?cmd=calendar" data-role="button">Es ist ein Fehler aufgetreten. Zur&uuml;ck zur &Uuml;bersicht</a>
-				<?php } ?>								
+				<a href="index.php?cmd=delete&booid=<?php echo $this->booking->getId(); ?>" data-role="button" data-icon="delete" data-iconpos="top" data-rel="dialog">Reservation l&ouml;schen</a>			
 			</div>
 			
 			<footer>

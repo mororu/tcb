@@ -27,6 +27,8 @@
 			
 			<div data-role="content">
 				
+				<p style="text-align:center;"><?php if ($this->saveSuccess == true) { echo "Reservierung erfolgreich gespeichert."; } ?></p>
+				
 				<!-- Day set -->
 				<div data-role="collapsible-set" data-collapsed-icon="carat-r" data-expanded-icon="carat-d">
 				<?php $i=0; foreach($this->calendar->getDays() as $day) { ?>
@@ -47,12 +49,11 @@
 											if ($court->getBooking() != null) {
 									?>
 										<td id="<?php echo $court->getId(); ?>">
-											<p class="courtTitle">Platz <?php echo $court->getCourtNr(); ?></p>
+											<a href="index.php?cmd=booking&booid=<?php echo $court->getBooking()->getId(); ?>" class="courtTitle">Platz <?php echo $court->getCourtNr(); ?><br />
 											<?php
 												$playerCount = count($court->getBooking()->getPlayers());
 												if($playerCount > 0) {
 											?>
-											<p>
 												<?php
 													$loop = 0;
 													foreach ($court->getBooking()->getPlayers() as $player) {
@@ -62,9 +63,12 @@
 														}
 														$loop++;												
 													}
-												}											
+												}
+												
+												echo $court->getBooking()->getDescription();
+						
 												?>
-											</p>
+											</a>
 										</td>
 											<?php
 												} else {
@@ -91,7 +95,7 @@
 			
 			<footer>
 				<div data-role="footer">
-					<h1>Footer</h1>
+					<h1>&copy; 2014 by Tc-Buttisholz</h1>
 				</div>
 			</footer>
 		</div>

@@ -43,14 +43,17 @@
 		public function execute(Request $request, Response $response) {
 			
 			$this->db = DataBase::getConnection();
+			$this->template = parent::loadTemplate($request);
 			
 			if($request->issetParameter('saveBooking')) {
 				$errorCode = $this->saveBooking($request);
+				if ($errorCode == 0) {
+					$this->template->saveSuccess = true;
+				}
 			} 
 		
 			$bookingMapper = new BookingMapper($this->db, $this->debugger);			
 			$bookings = $bookingMapper->findBookings(strtotime('today midnight'));
-			$this->template = parent::loadTemplate($request);
 			$calendar = $this->getCalenderContent();
 			
 			$calendar->compareCalendarWithBookings($bookings);
@@ -83,10 +86,14 @@
 		private function saveBooking(Request $request) {
 		
 			if($request->issetParameter('matchType')) {
-
+				
+				$playerList = array();
+				
 				if($request->getParameter('matchType') < 2) {
 					$playerList = $this->getPlayerList($request);
 				}
+				
+				$this->debugger->debug(count($playerList));
 				
 				if(!$this->createBooking($request, $playerList)) 
 				{
@@ -137,11 +144,16 @@
 			$booking = $bookingMapper->findById($request->getParameter('bookingId'));
 			
 			if ($booking->getBookingExist() == true) {
-				$booking->setPlayerIdList($playerList);
+				
+				if (count($playerList) > 0) {
+					$booking->setPlayerIdList($playerList);
+				}
+		
 				$booking->setBookingId($request->getParameter('bookingId'));
 				$booking->setPropertiesById();
 				$booking->setBookingType($request->getParameter('matchType'));
 				if ($request->issetParameter('description')) {
+					$this->debugger->debug('Description is set');
 					$booking->setDescription($request->getParameter('description'));
 				}
 				$bookingMapper->save($booking);

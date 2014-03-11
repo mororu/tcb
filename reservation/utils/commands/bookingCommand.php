@@ -6,8 +6,11 @@
 	use ch\tcbuttisholz\tcbtcr\utils\template\Template;
 	use ch\tcbuttisholz\tcbtcr\utils\command\WebCommand;
 	use ch\tcbuttisholz\tcbtcr\lib\Day;
+	use ch\tcbuttisholz\tcbtcr\utils\DataBase;
+	use ch\tcbuttisholz\tcbtcr\lib\BookingMapper;
+	use ch\tcbuttisholz\tcbtcr\lib\Booking;
 	
-	class SingleMatchCommand extends WebCommand {
+	class bookingCommand extends WebCommand {
 		
 		/**
 		 * @private
@@ -27,23 +30,32 @@
 		 * @param $response The response object
 		 * 
 		 * @author Manuel Wyss
-		 * @version 0.1, 02.03.2014 
+		 * @version 0.1, 11.03.2014 
 		 */
 		public function execute(Request $request, Response $response) {
-			$this->template = parent::loadTemplate($request);
+
+			$db = DataBase::getConnection();
+			$this->template = parent::loadTemplate($request);			
+		
+			if($request->issetParameter('booid')) {
 			
-			if($request->issetParameter('booid') && $request->issetParameter('type')) {
+				$bookingMapper = new BookingMapper($db, $this->debugger);
+				$booking = $bookingMapper->findById($request->getParameter('booid'));
+				$booking = $bookingMapper->loadPlayers($booking);
+				$this->template->booking = $booking;
+			
 				$this->template->bookingId = $request->getParameter('booid');
-				$this->template->matchType = $request->getParameter('type');
 				$this->getReservationInfo(substr($this->template->bookingId, 0, -1));
 			} else {
 				$this->template->bookingId = 0;
+				$this->debugger->debug('Keine Booking Id');				
 			}
-			
-			$response->write($this->template);									
+
+			$response->write($this->template);	
 		}
 		
-		private function getReservationInfo($timestamp) {			
+		private function getReservationInfo($timestamp) {
+			
 			$day = new Day($timestamp, $this->debugger);
 			$this->template->day = $day->getWeekday();
 			$this->template->start = date('H:i', $day->getTimestamp());

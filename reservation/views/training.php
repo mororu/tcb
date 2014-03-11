@@ -29,13 +29,9 @@
 				<h2 style="text-align: center;"><?php echo "{$this->day}, {$this->start} - {$this->end} Uhr";?></h2>
 				
 				<form id="singleMatch" name="bookingForm" action="?cmd=calendar" method="post" data-ajax="false">
-					<div id="player1" class="playerList">
-						<input class="search" id="playerSearch1" name="playerSearch1" type="text" value="" data-clear-btn="true" data-mini="false" placeholder="Spieler 1" autocomplete="off">
+					<div id="descriptionArea">
+						<textarea id="description" name="description" cols="100" rows="10"></textarea>
 					</div>
-					<div id="player2" class="playerList">
-						<input class="search" id="playerSearch2" name="playerSearch2" type="text" value="" data-clear-btn="true" data-mini="false" placeholder="Spieler 2" autocomplete="off">
-					</div>
-					<ul data-role="listview" data-inset="true" id="result" class="resultList"></ul>
 					<div id="hiddenArea">
 						<input type="hidden" value="<?php echo $this->bookingId; ?>" id="bookingId" name="bookingId" />
 						<input type="hidden" value="<?php echo $this->matchType; ?>" id="matchType" name="matchType" />

@@ -93,6 +93,19 @@
 		 }
 		 
 		/**
+		 * @public
+		 * Returns the timestamp
+		 *
+		 * @return $timestamp
+		 *
+		 * @author Manuel Wyss
+		 * @version 0.1, 08.03.2014
+		 */
+		 public function getTimestamp() {
+			 return $this->timestamp;
+		 }
+		 
+		/**
 		 * @public 
 		 * Gets the german date format of the timestamp
 		 * 

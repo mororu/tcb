@@ -7,7 +7,7 @@
 	use ch\tcbuttisholz\tcbtcr\utils\command\WebCommand;
 	use ch\tcbuttisholz\tcbtcr\lib\Day;
 	
-	class SingleMatchCommand extends WebCommand {
+	class TrainingCommand extends WebCommand {
 		
 		/**
 		 * @private
