@@ -29,7 +29,7 @@
 							foreach($this->booking->getPlayers() as $player) { ?>
 						<a href="#" data-role="button">
 						<?php echo $player->getName(); ?>
-						</a>
+						</a> 
 					<?php 
 							}
 						} else {
@@ -40,9 +40,9 @@
 					<?php } ?>
 				</div>
 				
-				<a href="index.php?cmd=calendar" data-role="button" data-icon="home" data-iconpos="top">Zur&uuml;ck zur &Uuml;bersicht</a>
+				<a href="index.php?cmd=calendar" data-role="button" data-icon="home" data-iconpos="top" class="okButton">Zur&uuml;ck zur &Uuml;bersicht</a>
 					
-				<a href="index.php?cmd=delete&booid=<?php echo $this->booking->getId(); ?>" data-role="button" data-icon="delete" data-iconpos="top" data-rel="dialog">Reservation l&ouml;schen</a>			
+				<a href="index.php?cmd=delete&booid=<?php echo $this->booking->getId(); ?>" data-role="button" data-icon="delete" data-iconpos="top" data-rel="dialog" class="cancelButton">Reservation l&ouml;schen</a>			
 			</div>
 			
 			<footer>

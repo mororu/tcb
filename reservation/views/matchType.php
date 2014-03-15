@@ -25,12 +25,12 @@
 				<?php if ($this->bookingId != 0) {  ?>	
 					<h2 style="text-align: center;"><?php echo "{$this->day}, {$this->start} - {$this->end} Uhr";?></h2>
 					
-					<a href="index.php?cmd=singleMatch&type=0&booid=<?php echo $this->bookingId; ?>" data-role="button" data-ajax="false">Einzel Match</a>
-					<a href="index.php?cmd=doubleMatch&type=1&booid=<?php echo $this->bookingId; ?>" data-role="button" data-ajax="false">Doppel Match</a>
-					<a href="index.php?cmd=training&type=2&booid=<?php echo $this->bookingId; ?>" data-role="button" data-ajax="false">Training, Turnier, diverses ...</a>
-					<a href="?cmd=calendar" data-role="button">Reservation Abbrechen</a>
+					<a href="index.php?cmd=singleMatch&type=0&booid=<?php echo $this->bookingId; ?>" data-role="button" data-ajax="false" class="okButton" data-icon="star" data-iconpos="top">Einzel Match</a>
+					<a href="index.php?cmd=doubleMatch&type=1&booid=<?php echo $this->bookingId; ?>" data-role="button" data-ajax="false" class="okButton" data-icon="star" data-iconpos="top">Doppel Match</a>
+					<a href="index.php?cmd=training&type=2&booid=<?php echo $this->bookingId; ?>" data-role="button" data-ajax="false" class="okButton" data-icon="star" data-iconpos="top">Training, Turnier, diverses ...</a>
+					<a href="?cmd=calendar" data-role="button" class="cancelButton" data-icon="delete" data-iconpos="top">Reservation Abbrechen</a>
 				<?php } else { ?>	
-					<a href="?cmd=calendar" data-role="button">Es ist ein Fehler aufgetreten. Zur&uuml;ck zur &Uuml;bersicht</a>
+					<a href="?cmd=calendar" data-role="button" class="cancelButton">Es ist ein Fehler aufgetreten. Zur&uuml;ck zur &Uuml;bersicht</a>
 				<?php } ?>								
 			</div>
 			

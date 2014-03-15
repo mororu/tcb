@@ -46,16 +46,16 @@
 						<input type="hidden" value="<?php echo $this->bookingId; ?>" id="bookingId" name="bookingId" />
 						<input type="hidden" value="<?php echo $this->matchType; ?>" id="matchType" name="matchType" />
 					</div>
-					<div id="submit">
-						<input type="submit" id="saveBooking" name="saveBooking" value="Reservation speichern">
+					<div id="saveSubmit">
+						<input type="submit" id="saveBooking" name="saveBooking" value="Reservation speichern" class="okButton" data-icon="check" data-iconpos="top">
 					</div>
 					<div id="cancel">
-						<a href="?cmd=calendar" data-role="button">Reservation Abbrechen</a>
+						<a href="?cmd=calendar" data-role="button" class="cancelButton" data-icon="delete" data-iconpos="top">Reservation Abbrechen</a>
 					</div>
 				</form>		
 				
 				<?php } else { ?>
-				<a href="?cmd=calendar" data-role="button">Es ist ein Fehler aufgetreten. Zur&uuml;ck zur &Uuml;bersicht</a>
+				<a href="?cmd=calendar" data-role="button" class="cancelButton">Es ist ein Fehler aufgetreten. Zur&uuml;ck zur &Uuml;bersicht</a>
 				<?php } ?>
 			</div>
 			

@@ -27,18 +27,32 @@
 			
 			<div data-role="content">
 				
-				<p style="text-align:center;"><?php if ($this->saveSuccess == true) { echo "Reservierung erfolgreich gespeichert."; } ?></p>
+				<p style="text-align:center; font-weight: bold;">
+					<?php 
+						if ($this->saveSuccess == true) { echo "Reservierung erfolgreich gespeichert."; } 
+						if ($this->deleteSuccess == true) { echo "Reservierung wurde erfolgreich gel&ouml;scht."; }
+					?>
+				</p>
+				<p class="error">
+					<?php
+						switch($this->errorCode) {
+							case 200:
+								 echo "Der ausgew&auml;hlte Tennisplatz ist bereits reserviert.";
+							break;
+						}
+					?>
+				</p>
 				
 				<!-- Day set -->
 				<div data-role="collapsible-set" data-collapsed-icon="carat-r" data-expanded-icon="carat-d">
 				<?php $i=0; foreach($this->calendar->getDays() as $day) { ?>
-					<div data-role="collapsible" data-collapsed="<?php echo ($i == 0 ? 'false': 'true'); ?>" >
+					<div data-role="collapsible" data-collapsed="<?php echo ($i == 0 ? 'false': 'true'); ?>" class="day">
 						<h2><?php echo "{$day->getWeekday()}, {$day->getDate()} <br/>"; ?></h2>
 						
 						<!-- Time set -->
 						<div data-role="collapsible-set" data-collapsed-icon="carat-r" data-expanded-icon="carat-d">								
 						<?php foreach($day->getHours() as $hour) { ?>
-							<div data-role="collapsible" id="courtContainer">
+							<div data-role="collapsible" id="courtContainer" class="hour">
 								<h2><?php echo "{$hour->getStartTime()} - {$hour->getEndTime()}"; ?></h2>
 
 								<!-- COURT TABLE -->
@@ -49,7 +63,7 @@
 											if ($court->getBooking() != null) {
 									?>
 										<td id="<?php echo $court->getId(); ?>">
-											<a href="index.php?cmd=booking&booid=<?php echo $court->getBooking()->getId(); ?>" class="courtTitle">Platz <?php echo $court->getCourtNr(); ?><br />
+											<a href="index.php?cmd=booking&booid=<?php echo $court->getBooking()->getId(); ?>" class="booked">Platz <?php echo $court->getCourtNr(); ?><br />
 											<?php
 												$playerCount = count($court->getBooking()->getPlayers());
 												if($playerCount > 0) {

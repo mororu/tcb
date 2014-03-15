@@ -31,3 +31,62 @@
 	font-weight: bold;
 	text-decoration: underline;
 }
+
+p.error {
+	text-align: center;
+	font-weight: bold;
+	color: #8a0c0c;
+}
+
+.cancelButton {
+	margin-top: 20px !important;
+	background: #e26464 !important;
+	border: 1px solid #831414 !important;
+	text-shadow: none !important;
+}
+
+.cancelButton:hover {
+	background: #990000 !important;
+	color: #FFFFFF !important;
+}
+
+.okButton {
+	background: #5a9a65 !important;
+	border: 1px solid #1a4827 !important;
+	text-shadow: none !important;
+}
+
+.okButton:hover {
+	background: #1c4221 !important;
+	color: #FFFFFF !important;
+}
+
+#deleteSubmit .ui-btn {
+	margin-top: 20px !important;
+	background: #e26464 !important;
+	border: 1px solid #831414 !important;
+	text-shadow: none !important;	
+}
+
+#saveSubmit .ui-btn {
+	background: #5a9a65 !important;
+	border: 1px solid #1a4827 !important;
+	text-shadow: none !important;	
+}
+
+.day h2 a {
+	background: #5a9a65 !important;
+	border: 1px solid #1a4827 !important;
+	text-shadow: none !important;	
+}
+
+.hour h2 a {
+	background: #bdbdbd !important;
+	border: 1px solid #767676 !important;	
+	text-shadow: none !important;	
+}
+
+a.booked {
+	color: #5d0606 !important;
+}
+

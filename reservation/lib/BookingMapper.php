@@ -204,7 +204,27 @@
 			$this->db->modify($statement, $data);
 		 }
 		 
+		 /**
+		  * Deletes a booking an all match relations
+		  * 
+		  * @access public
+		  * @param mixed $bookingId
+		  * @return void
+		  */
+		 public function deleteBooking($bookingId) {
+		 	
+		 	$this->debugger->debug("Delete with id {$bookingId}");
 		 
+			 $data = array($bookingId);
+			 
+			 // Delete matches
+			 $statement = "DELETE FROM matches WHERE mat_boo_id = ?";
+			 $this->db->delete($statement, $data);
+			 
+			 // Delete booking
+			 $statement = "DELETE FROM bookings WHERE boo_id = ?";
+			 $this->db->delete($statement, $data);
+	     }		 		 
 	}
 
 ?>

@@ -31,15 +31,15 @@
 				<h1>Reservation l&ouml;schen</h1>
 			</div>
 			<div data-role="content">
-				<h3>Soll diese Reservation definitiv gelöscht werden?</h3>
+				<h4 style="text-align: center;">Soll diese Reservation definitiv gelöscht werden?</h4>
 				<form id="deleteBooking" name="deleteBooking" method="post" action="index.php?cmd=calendar">
 					<div id="hiddenArea">
 						<input type="hidden" id="deleteId" name="deleteId" value="<?php echo $this->bookingId; ?>">
 					</div>
-					<div id="submit">
-						<input type="submit" id="saveBooking" name="saveBooking" data-icon="delete" value="Ja, Reservation l&ouml;schen">
+					<div id="deleteSubmit">
+						<input type="submit" id="saveBooking" name="saveBooking" data-icon="delete" data-iconpos="top" value="Ja, Reservation l&ouml;schen" class="cancelButton">
 					</div>
-					<a href="#" data-rel="back" data-role="button" data-icon="home">Nein, Reservation nicht l&ouml;schen</a>
+					<a href="#" data-rel="back" data-role="button" data-icon="home" class="okButton" data-iconpos="top">Nein, Reservation nicht l&ouml;schen</a>
 				</form>
 			</div>
 		</div>

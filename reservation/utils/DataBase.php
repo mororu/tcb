@@ -15,6 +15,8 @@
 		private $db_name;
 		private $db_socket;
 		
+		public $debugger;
+		
 		private function __construct() {
 			
 			$this->readConfig();
@@ -65,9 +67,18 @@
 				$sth->execute($data);
 				return $this->pdo->lastInsertId();
 			} catch(Exception $e) {
-				die("ERROR: ".$e->getMessage());
+				$this->debugger->debug("ERROR: {$e->getMessage()}");
 			}
-		}		
+		}	
+		
+		public function delete($statement, $data) {
+			try {
+				$sth = $this->pdo->prepare($statement);
+				$sth->execute($data);
+			} catch(Exception $e) {
+				$this->debugger->debug("ERROR: {$e->getMessage()}");
+			}
+		}	
 		
 		public function __clone() { return false;}
 		

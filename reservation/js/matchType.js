@@ -41,7 +41,7 @@ $(document).ready(function() {
 					type: 'GET',
 					data: dynamicData,
 					dataType: 'json',
-					error: function() {console.log('No player with key: ' + searchKey);},
+					error: function() {list.empty(); console.log('No player with key: ' + searchKey);},
 					success: populateListItems
 		});
 	}
@@ -60,5 +60,23 @@ $(document).ready(function() {
 	// Handles the click on the cancel button
 	$('#cancelBooking').click(function() {
 		alert('cancel Booking');
+	});
+	
+	$('#saveBooking').click(function() {
+		
+		var isValid = true;
+		var elements = document.getElementsByTagName('input');
+		
+		for(var i = 0; i < elements.length; i++) {
+			if(elements[i].value.length < 1) {
+				isValid = false;
+			}
+		}
+		
+		if(!isValid) {
+			alert('Bitte alle Mitspieler eintragen.');
+		}
+		
+		return isValid;
 	});
 });

@@ -43,6 +43,7 @@
 		public function execute(Request $request, Response $response) {
 			
 			$this->db = DataBase::getConnection();
+			$this->db->debugger = $this->debugger;
 			$this->template = parent::loadTemplate($request);
 			
 			if($request->issetParameter('saveBooking')) {
@@ -50,8 +51,15 @@
 				if ($errorCode == 0) {
 					$this->template->saveSuccess = true;
 				}
+				$this->template->errorCode = $errorCode;
 			} 
 		
+			if ($request->issetParameter('deleteId')) {
+				$this->debugger->debug('deleteId');
+				$this->deleteBooking($request->getParameter('deleteId'));
+				$this->template->deleteSuccess = true;			
+			}
+			
 			$bookingMapper = new BookingMapper($this->db, $this->debugger);			
 			$bookings = $bookingMapper->findBookings(strtotime('today midnight'));
 			$calendar = $this->getCalenderContent();
@@ -83,6 +91,12 @@
 			}
 		}
 		
+		private function deleteBooking($bookingId) {
+			$this->debugger->debug('deleteBooking');
+			$bookingMapper = new BookingMapper($this->db, $this->debugger);
+			$bookingMapper->deleteBooking($bookingId);
+		}
+		
 		private function saveBooking(Request $request) {
 		
 			if($request->issetParameter('matchType')) {
@@ -97,6 +111,7 @@
 				
 				if(!$this->createBooking($request, $playerList)) 
 				{
+					$this->debugger->debug('Court is already booked');
 					return 200;				
 				}
 			} else {
