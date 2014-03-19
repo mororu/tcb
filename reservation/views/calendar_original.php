@@ -43,7 +43,7 @@
 							break;
 						}
 					?>
-				</p> 
+				</p>
 				
 				<!-- Day set -->
 				<div data-role="collapsible-set" data-collapsed-icon="carat-r" data-expanded-icon="carat-d">
@@ -55,63 +55,63 @@
 						<!-- Time set -->
 						<div data-role="collapsible-set" data-collapsed-icon="carat-r" data-expanded-icon="carat-d">								
 						<?php foreach($day->getHours() as $hour) { ?>
-							<div data-role="collapsible" id="courtContainer" class="<?php if ($hour->hasFreeCourts()) { echo "hour"; } else { echo "occupied"; } ?>">
-								<h2><?php echo "{$hour->getStartTime()} - {$hour->getEndTime()}"; ?></h2> 
-								
-								<!-- COURT AREA -->
-								<ul data-role="listview" data-inset="true" id="courts">
-									
-									<?php 
+							<div data-role="collapsible" id="courtContainer" class="hour">
+								<h2><?php echo "{$hour->getStartTime()} - {$hour->getEndTime()}"; ?></h2>
+
+								<!-- COURT TABLE -->
+								<table id="courtTable">
+									<tr>
+									<?php
 										foreach($hour->getCourts() as $court) {
 											if ($court->getBooking() != null) {
 									?>
-										<li id="<?php echo $court->getId(); ?>" data-icon="delete">
+										<td id="<?php echo $court->getId(); ?>">
 											<a href="index.php?cmd=booking&booid=<?php echo $court->getBooking()->getId(); ?>" class="booked">Platz <?php echo $court->getCourtNr(); ?><br />
-											
-											<?php 
+											<?php
 												$playerCount = count($court->getBooking()->getPlayers());
-												if ($playerCount > 0) {
+												if($playerCount > 0) {
+											?>
+												<?php
 													$loop = 0;
-													foreach($court->getBooking()->getPlayers() as $player) {
-														echo $player->getName();
-														if ($loop < $playerCount -1) {
+													foreach ($court->getBooking()->getPlayers() as $player) {
+														echo "{$player->getName()}";
+														if($loop < $playerCount - 1) {
 															echo " - ";
 														}
-														$loop++;
+														$loop++;												
 													}
 												}
 												
 												echo $court->getBooking()->getDescription();
+						
+												?>
+											</a>
+										</td>
+											<?php
+												} else {
 											?>
-											
+										<td id="<?php echo $court->getId(); ?>">										
+											<a href="?cmd=matchType&booid=<?php echo $court->getId(); ?>" id="<?php echo $court->getId(); ?>">
+												Platz <?php echo $court->getCourtNr(); ?> Reservieren
 											</a>
-										</li>
-									<?php 
-											} else {
-									?>
-										<li id="<?php echo $court->getId(); ?>" data-icon="plus" class="addBooking">
-											<a href="index.php?cmd=matchType&booid=<?php echo $court->getId(); ?>" id="<?php echo $court->getId(); ?>">
-												Platz <?php echo $court->getCourtNr(); ?> Reservieren 
-											</a>
-										</li>
-									<?php
+										</td>
+										<?php
+												}
 											}
-										}
-									?>
-									
-								</ul>
+										?>
+									</tr>
+								</table>
 							</div>								
 						<?php } ?>
 						</div>
 						
 					</div>
 				<?php $i++; } ?>
-				</div> 
+				</div>
 			</div>
 			
 			<footer>
 				<div data-role="footer">
-					<a href="documentation/anleitung-reservationssystem.pdf" target="_blank" data-role="button" data-icon="info" style="float: left; margin-left: 5px;">Hilfe</a>
 					<h1>&copy; 2014 by Tc-Buttisholz</h1>
 				</div>
 			</footer>

@@ -351,6 +351,27 @@
 		 public function getPlayerIdList() {
 			 return $this->playerIdList;
 		 }
+		 
+		 
+		 /**
+		  * Returns the date formated as day.month.year
+		  * 
+		  * @access public
+		  * @return void
+		  */
+		 public function getFormatedDate() {
+			 return date('d.m.Y', $this->getTimestamp());
+		 }
+		 
+		 /**
+		  * Returns the start time formated as Hours:minute
+		  * 
+		  * @access public
+		  * @return void
+		  */
+		 public function getFormatedStartTime() {
+			 return date('H:i', $this->getTimestamp());
+		 }
 	}
 	
 ?>

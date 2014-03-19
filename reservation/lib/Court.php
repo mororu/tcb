@@ -28,7 +28,7 @@
 		 * @private
 		 * Booking object
 		 */
-		 private $booking;
+		 private $booking = null;
 		
 		/**
 		 * @public

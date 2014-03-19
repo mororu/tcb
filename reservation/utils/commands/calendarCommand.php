@@ -22,6 +22,12 @@
 		
 		/**
 		 * @private
+		 * actual Booking object
+		 */
+		private $actualBooking;
+		
+		/**
+		 * @private
 		 * Database instance
 		 */
 		private $db;
@@ -50,6 +56,7 @@
 				$errorCode = $this->saveBooking($request);
 				if ($errorCode == 0) {
 					$this->template->saveSuccess = true;
+					$this->template->booking = $this->booking;
 				}
 				$this->template->errorCode = $errorCode;
 			} 
@@ -172,6 +179,7 @@
 					$booking->setDescription($request->getParameter('description'));
 				}
 				$bookingMapper->save($booking);
+				$this->booking = $booking;
 				return true;
 			} else {
 				$this->debugger->debug("Booking already exists");

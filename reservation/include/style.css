@@ -75,18 +75,29 @@ p.error {
 }
 
 .day h2 a {
-	background: #5a9a65 !important;
-	border: 1px solid #1a4827 !important;
+	background: #d3e3ed !important;
+	border: 1px solid #b4c5cf !important;
 	text-shadow: none !important;	
 }
 
 .hour h2 a {
-	background: #bdbdbd !important;
-	border: 1px solid #767676 !important;	
+	background: #e0e0e0 !important;
+	border: 1px solid #aaaaaa !important;	
 	text-shadow: none !important;	
+}
+
+.occupied h2 a {
+	background: #ef7f7f !important;
+	border: 1px solid #b91919 !important;	
+	text-shadow: none !important;		
 }
 
 a.booked {
 	color: #5d0606 !important;
 }
 
+#courts li.addBooking a {
+	color: #1b54a3 !important;
+	text-decoration: underline !important;
+	height: 100% !important;
+}

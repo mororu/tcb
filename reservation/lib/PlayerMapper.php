@@ -73,7 +73,7 @@
 			
 			$row = $this->db->select($statement, $data);
 			
-			$this->debugger->debug("Players with name: {$name} -> ".count($row));
+			// $this->debugger->debug("Players with name: {$name} -> ".count($row));
 			
 			if (count($row) == 1) {
 				return $this->create($row[0]);				
@@ -94,7 +94,7 @@
 		 */
 		 public function findPlayers($bookingId) {
 		 
-		 	$this->debugger->debug("findPlayers: {$bookingId}");
+		 	// $this->debugger->debug("findPlayers: {$bookingId}");
 		 		
 		 	$players = array();	
 		 	$data = array($bookingId);
@@ -106,7 +106,7 @@
 						   WHERE boo_id = ?";
 						   
 			$records = $this->db->select($statement, $data);
-			$this->debugger->debug("Players found: ".count($records));
+			// $this->debugger->debug("Players found: ".count($records));
 			
 			foreach($records as $row) {
 				$player = $this->create($row);
@@ -129,7 +129,7 @@
 		 */
 		 public function populate(AbstractDomainObject $obj, $data) {
 		 	$obj->setNewPlayer(false);
-		 	$this->debugger->debug("Populate: {$data->pla_fullname}");
+		 	// $this->debugger->debug("Populate: {$data->pla_fullname}");
 			$obj->setId($data->pla_id);
 		 	$obj->setName($data->pla_fullname);
 		 	$obj->setEmail($data->pla_email);
@@ -159,11 +159,11 @@
 		 * @version 0.1, 26.02.2014
 		 */
 		 protected function insertObject(AbstractDomainObject $obj) {
-		 	$this->debugger->debug("Insert player: {$obj->getName()} in player table");
+		 	// $this->debugger->debug("Insert player: {$obj->getName()} in player table");
 		 	$data = array($obj->getName(), $obj->getEmail());
 			$statement = "INSERT INTO players (pla_fullname, pla_email) VALUES (?,?)";
 			$plaId = $this->db->modify($statement, $data);
-			$this->debugger->debug("Inserted Player id: {$plaId}");
+			// $this->debugger->debug("Inserted Player id: {$plaId}");
 			return $plaId;
 		 }
 		 

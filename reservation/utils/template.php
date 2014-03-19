@@ -105,8 +105,6 @@
 			// Finally get the parsed template
 			$parsed = ob_get_contents();
 			
-			$this->debugger->debug($path);
-			
 			// clean up the input buffer
 			ob_end_clean();
 			

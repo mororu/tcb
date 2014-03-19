@@ -30,7 +30,6 @@
 		 * @version 0.1, 02.03.2014 
 		 */
 		public function execute(Request $request, Response $response) {
-			$this->debugger->debug("Execute ajaxCommand");
 			
 			$db = DataBase::getConnection();
 		

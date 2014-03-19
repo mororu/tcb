@@ -40,13 +40,14 @@
 					<?php } ?>
 				</div>
 				
-				<a href="index.php?cmd=calendar" data-role="button" data-icon="home" data-iconpos="top" class="okButton">Zur&uuml;ck zur &Uuml;bersicht</a>
+				<a href="index.php?cmd=calendar" data-role="button" data-icon="home" data-iconpos="top" class="okButton" data-ajax="false">Zur&uuml;ck zur &Uuml;bersicht</a>
 					
 				<a href="index.php?cmd=delete&booid=<?php echo $this->booking->getId(); ?>" data-role="button" data-icon="delete" data-iconpos="top" data-rel="dialog" class="cancelButton">Reservation l&ouml;schen</a>			
 			</div>
 			
 			<footer>
 				<div data-role="footer">
+					<a href="documentation/anleitung-reservationssystem.pdf" target="_blank" data-role="button" data-icon="info" style="float: left; margin-left: 5px;">Hilfe</a>
 					<h1>&copy; 2014 by Tc-Buttisholz</h1>
 				</div>
 			</footer>

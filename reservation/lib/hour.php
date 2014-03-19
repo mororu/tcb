@@ -157,5 +157,26 @@
 			 return new ArrayIterator($this->courts);
 		 }
 		 
+		 
+		 /**
+		  * Checks if the current hour has free courts
+		  * 
+		  * @access public
+		  * @return void
+		  */
+		 public function hasFreeCourts() {
+			 
+			 $hasFreeCourts = false;
+			 
+			 if ($this->courts) {
+				 foreach($this->courts as $court) {
+					 if($court->getBooking() == null) {
+						 $hasFreeCourts = true;
+						 break;
+					 }
+				 }
+			 } 
+			 return $hasFreeCourts;			
+		 }
 	}
 ?>

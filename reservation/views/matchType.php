@@ -36,6 +36,7 @@
 			
 			<footer>
 				<div data-role="footer">
+					<a href="documentation/anleitung-reservationssystem.pdf" target="_blank" data-role="button" data-icon="info" style="float: left; margin-left: 5px;">Hilfe</a>
 					<h1>&copy; 2014 by Tc-Buttisholz</h1>
 				</div>
 			</footer>

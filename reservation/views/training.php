@@ -30,7 +30,7 @@
 				
 				<form id="singleMatch" name="bookingForm" action="?cmd=calendar" method="post" data-ajax="false">
 					<div id="descriptionArea">
-						<textarea id="description" name="description" cols="100" rows="10"></textarea>
+						<textarea id="description" name="description" cols="100" rows="20"></textarea>
 					</div>
 					<div id="hiddenArea">
 						<input type="hidden" value="<?php echo $this->bookingId; ?>" id="bookingId" name="bookingId" />
@@ -51,6 +51,7 @@
 			
 			<footer>
 				<div data-role="footer">
+					<a href="documentation/anleitung-reservationssystem.pdf" target="_blank" data-role="button" data-icon="info" style="float: left; margin-left: 5px;">Hilfe</a>
 					<h1>&copy; 2014 by Tc-Buttisholz</h1>
 				</div>
 			</footer>
