@@ -275,7 +275,7 @@
 		 * @version 0.1, 08.03.2014
 		 */
 		 public function setStartTime() {
-			 $this->startTime = date('h', $this->timestamp);
+			 $this->startTime = date('H:i', $this->timestamp);
 		 }
 		 
 		 /**
@@ -288,7 +288,8 @@
 		 * @version 0.1, 08.03.2014
 		 */
 		 public function getStartTime() {
-			 return $this->startTime;
+		 	$this->setStartTime();
+			return $this->startTime;
 		 }	
 		 
 		 /**
@@ -372,6 +373,41 @@
 		 public function getFormatedStartTime() {
 			 return date('H:i', $this->getTimestamp());
 		 }
+		 
+		 
+		 /**
+		  * Returns the german name of the weekday.
+		  * 
+		  * @access public
+		  * @return void
+		  */
+		 public function getNameOfDay() {
+			 $weekdays[0] = 'Sonntag';
+			 $weekdays[1] = 'Montag';
+			 $weekdays[2] = 'Dienstag';
+			 $weekdays[3] = 'Mittwoch';
+			 $weekdays[4] = 'Donnerstag';
+			 $weekdays[5] = 'Freitag';
+			 $weekdays[6] = 'Samstag';
+			
+			 $this->weekday = $weekdays[date("w", $this->getTimestamp())];
+			 return $this->weekday;
+		 }
+		 
+	   /** 
+		* Returns if a booking is deletable or not.
+		* If the actual time is more than 30 minutes over the timestamp of the booking, return false.
+		*
+		* @access public 
+		* @return boolean
+		*/
+		public function isBookingDeleteable() {
+			$actualTime = strtotime(date('Y-m-d H:i:s'));
+			if(($this->timestamp + 1800) < $actualTime) {
+				return false;
+			}				
+			return true;
+		}
 	}
 	
 ?>

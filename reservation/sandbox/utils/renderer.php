@@ -7,7 +7,7 @@
 		
 		public function __construct($debugger) {
 			$this->debugger = $debugger;
-			$this->debugger->debug('__construct Renderer');
+			//$this->debugger->debug('__construct Renderer');
 		}
 		
 		public function renderDayList($days) {

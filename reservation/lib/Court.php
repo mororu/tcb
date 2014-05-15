@@ -125,5 +125,19 @@
 		 public function getCourtNr() {
 		 	return $this->courtNr;
 		 }
+		 
+	   /**
+		* Returns the timestamp for the court
+		*
+		* @access public
+		* @return $timestamp
+		*/
+		public function isBookable() {
+			$actualTime = strtotime(date('Y-m-d H:i:s'));
+			if(($this->timestamp + 1800) > $actualTime) {
+				return true;
+			}				
+			return false;
+		}
 	}
 ?>

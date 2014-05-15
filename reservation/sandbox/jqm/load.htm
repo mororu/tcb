@@ -1,0 +1,71 @@
+<html>
+<head>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css" />
+		
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+	<script type="text/javascript">
+	
+	$(document).ready(function() {
+
+function showStuff(page, data) {
+    var $page = $(page);
+    var demo = {
+        fruits: ["Orange", "Apple"],
+        vegetables: ["Tomato", "Carrot"]
+    };
+    var list = $("<ul/>", {
+        "data-role": "listview",
+            "data-inset": true,
+            "data-theme": "b"
+    });
+    var items = '';
+    $.each(demo[data], function (i, v) {
+        items = $("<li>" + v + "</li>");
+        list.append(items);
+    });
+    $("ul", $page).remove();
+    $(".ui-content", $page).append(list);
+    $("ul", $page).listview();
+}
+
+/* Pass data with changePage */
+$(document).on("pageinit", "#p1", function () {
+    $(".data").on("click", function () {
+        $.mobile.pageContainer.pagecontainer("change", "#p2", {
+            stuff: this.id,
+            transition: "flip"
+        });
+    });
+});
+
+/* retrieve data and run function to add elements */
+$(document).on("pagebeforechange", function (e, data) {
+    if (data.toPage[0].id == "p2") {
+        var stuff = data.options.stuff;
+        showStuff("#p2", stuff);
+    }
+});
+
+});
+
+	</script>
+</head>
+<body>
+<div data-role="page" id="p1">
+    <div role="main" class="ui-content"> <a href="#" class="ui-btn data" id="fruits">Fruits?</a>
+ <a href="#" class="ui-btn data" id="vegetables">Vegetables?</a>
+
+    </div>
+</div>
+<div data-role="page" id="p2">
+    <div data-role="header" data-add-back-btn="true">
+         <h1>Header</h1>
+
+    </div>
+    <div role="main" class="ui-content">
+        <p>Page Two</p>
+    </div>
+</div>
+</body>
+</html>

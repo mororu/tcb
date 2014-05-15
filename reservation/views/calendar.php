@@ -66,7 +66,12 @@
 											if ($court->getBooking() != null) {
 									?>
 										<li id="<?php echo $court->getId(); ?>" data-icon="delete">
-											<a href="index.php?cmd=booking&booid=<?php echo $court->getBooking()->getId(); ?>" class="booked">Platz <?php echo $court->getCourtNr(); ?><br />
+											<?php if ($court->getBooking()->isBookingDeleteable()) { ?>
+												<a href="index.php?cmd=booking&booid=<?php echo $court->getBooking()->getId(); ?>" class="booked">
+											<?php } else { ?>
+												<h4>
+											<?php } ?>
+												Platz <?php echo $court->getCourtNr(); ?><br />
 											
 											<?php 
 												$playerCount = count($court->getBooking()->getPlayers());
@@ -84,15 +89,25 @@
 												echo $court->getBooking()->getDescription();
 											?>
 											
-											</a>
+											<?php if ($court->getBooking()->isBookingDeleteable()) { ?>
+												</a>
+											<?php } else { ?>
+												</h4>
+											<?php } ?>
 										</li>
 									<?php 
 											} else {
 									?>
 										<li id="<?php echo $court->getId(); ?>" data-icon="plus" class="addBooking">
+										
+										<?php if ($court->isBookable()) { ?>
 											<a href="index.php?cmd=matchType&booid=<?php echo $court->getId(); ?>" id="<?php echo $court->getId(); ?>">
 												Platz <?php echo $court->getCourtNr(); ?> Reservieren 
 											</a>
+										<?php } else { ?>
+											<h4>Platz <?php echo $court->getCourtNr(); ?> </h4>
+										<?php } ?>
+										
 										</li>
 									<?php
 											}

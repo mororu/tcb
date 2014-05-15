@@ -52,7 +52,7 @@
 		public function __construct($timestamp, $debugger) {
 			$this->day = $timestamp;
 			$this->debugger = $debugger;
-			$this->debugger->debug('__construct Day '.$this->day);
+			// $this->debugger->debug('__construct Day '.$this->day);
 		}
 		
 		public function getDate() {

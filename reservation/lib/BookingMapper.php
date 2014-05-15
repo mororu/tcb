@@ -96,6 +96,38 @@
 			 return $booking;
 		 }
 		 
+		 
+		 /**
+		  * Returns the bookings in the future or in the past
+		  * 
+		  * @access public
+		  * @param mixed $start
+		  * @param mixed $future
+		  * @return booking array
+		  */
+		 public function findAllBookings($start, $future) {
+			 
+			 $bookings = array();
+			 $data = array($start);
+			 
+			 $this->debugger->debug('Future: '.$future.' Timestamp: '.date('d.m.Y H:i', $start));
+			 
+			 if($future == 'asc') {
+				 $statement = "SELECT * FROM bookings WHERE boo_timestamp <= ? ORDER BY boo_date desc, boo_time asc, boo_court asc";
+			 } else {
+				 $statement = "SELECT * FROM bookings WHERE boo_timestamp >= ? ORDER BY boo_date asc, boo_time asc, boo_court asc";				 
+			 }
+			 
+			 $records = $this->db->select($statement, $data);
+			 
+			 foreach($records as $row) {
+		     	$booking = $this->create($row);
+				$this->loadPlayers($booking);
+				$bookings[] = $booking; 
+			 }
+			 return $bookings;
+		 }
+		 
 		/**
 		 * @public
 		 * Set the properties of the business class
@@ -116,7 +148,7 @@
 			$obj->setDescription($data->boo_description);
 			$obj->setBookingType($data->boo_type);
 			
-			$this->debugger->debug($data->boo_description);
+			//$this->debugger->debug($data->boo_description);
 			
 			return $obj;
 		 }
