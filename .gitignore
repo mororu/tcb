@@ -2,3 +2,7 @@
 *.log
 
 *.ini
+
+TcbTcr-Versions/*.*
+
+TcbTcr-Versions/V0.01/documentation/anleitung-reservationssystem.pdf
